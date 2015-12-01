@@ -17,10 +17,10 @@ uart_ports=`grep -c "cape_enable=capemgr.enable_partno=BB-UART1,BB-UART2,BB-UART
 
 if [ $uart_ports -eq 1 ]
 then
-echo "UART ports 1,2,4 and 5 are already enabled"
+	echo "UART ports 1,2,4 and 5 are already enabled"
 else
-echo "UART ports 1,2,4 and 5 are now enabled"
-sudo echo "cape_enable=capemgr.enable_partno=BB-UART1,BB-UART2,BB-UART4,BB-UART5" >> /boot/uEnv_cp.txt
+	echo "UART ports 1,2,4 and 5 are now enabled"
+	sudo echo "cape_enable=capemgr.enable_partno=BB-UART1,BB-UART2,BB-UART4,BB-UART5" >> /boot/uEnv_cp.txt
 fi
 
 echo "connect Olimexino nano GSM module RX to TX of bbb"
@@ -36,10 +36,10 @@ echo "connect Olimexino nano GSM module CON1_6 to + of external Battery"
 sudo apt-get update
 if [ -d /etc/ppp ]
 then
-echo "ppp is already installed"
+	echo "ppp is already installed"
 else
-sudo apt-get install ppp screen elinksa
-echo Point to point protocol is installed
+	sudo apt-get install ppp screen elinksa
+	echo Point to point protocol is installed
 fi
 
 #in case you need to test whether the GPRS module is well connected
@@ -54,17 +54,17 @@ fi
 #cd /etc/ppp/peers/
 if [ -f /etc/ppp/peers/fona ]
 then
-echo "fona configuration file already installed"
+	echo "fona configuration file already installed"
 else
-cd /etc/ppp/peers/
-#download this configuration file inside this peers directory which define how each ppp connection is setup and rename it fona
-wget https://raw.githubusercontent.com/adafruit/FONA_PPP/master/fona
-echo "fona configuration file is installed"
+	cd /etc/ppp/peers/
+	#download this configuration file inside this peers directory which define how each ppp connection is setup and rename it fona
+	wget https://raw.githubusercontent.com/adafruit/FONA_PPP/master/fona
+	echo "fona configuration file is installed"
 
-# Edit this configuration file on APN, we use internet.mtn and serial port to use is ttyO4
-#let use sed to replace default APN "****" to "internet.mtn". 
-sudo  sed -i "s/\*\*\*\*/internet.mtn/g" /etc/ppp/peers/fona
-sudo echo "/dev/ttyO4" >> /etc/ppp/peers/fona
+	# Edit this configuration file on APN, we use internet.mtn and serial port to use is ttyO4
+	#let use sed to replace default APN "****" to "internet.mtn". 
+	sudo  sed -i "s/\*\*\*\*/internet.mtn/g" /etc/ppp/peers/fona
+	sudo echo "/dev/ttyO4" >> /etc/ppp/peers/fona
 fi
 
 #Automatic PPP Connection On Boot
@@ -81,11 +81,11 @@ fonaprovider=`grep -c "provider fona" "$file"`
 
 if [ $fonaauto -eq 1 ] && [ $fonaiface -eq 1 ] &&  [ $fonaprovider -eq 1 ]
 then
-echo "auto ppp connection files are already added"
+	echo "auto ppp connection files are already added"
 else
-echo "auto ppp connection files are added"
-sudo echo "auto fona
-iface fona inet ppp
+	echo "auto ppp connection files are added"
+	sudo echo "auto fona
+	iface fona inet ppp
 	provider fona" >>  /etc/network/interfaces
 fi
 
@@ -108,13 +108,13 @@ echo EmonTx is connecting ...............
 cd /root
 if [ -d /root/serialEmonTx ]
 then
-echo "Serial communication of EmonTx through ttyO2 already established"
+	echo "Serial communication of EmonTx through ttyO2 already established"
 else
-#if the directory is not here, make it and download the configuration file 
-sudo mkdir serialEmonTx
-cd /root/serialEmonTx/
-sudo wget https://raw.githubusercontent.com/graycatlabs/PyBBIO/master/examples/serial_echo.py
-echo "Serial communication of EmonTx through ttyO2 is established"
+	#if the directory is not here, make it and download the configuration file 
+	sudo mkdir serialEmonTx
+	cd /root/serialEmonTx/
+	sudo wget https://raw.githubusercontent.com/graycatlabs/PyBBIO/master/examples/serial_echo.py
+	echo "Serial communication of EmonTx through ttyO2 is established"
 fi
 
 echo COMMUNICATION BETWEEN BEAGLEBONE AND GPRS Module ESTABLISHED, use uart4: RX=P9_11, TX=P9_13
