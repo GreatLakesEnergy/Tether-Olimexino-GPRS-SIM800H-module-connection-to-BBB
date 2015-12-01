@@ -1,5 +1,5 @@
 #!/bin/bash
-echo ENABLING GPRS CONNECTION ........
+echo "ENABLING GPRS CONNECTION ........"
 # enable UART pins that you are going to use on Olemexino Nano gsm module, uncomment the line below
 #https://learn.adafruit.com/fona-tethering-to-raspberry-pi-or-beaglebone-black/wiring
 #UART1 RX=P9_26, TX=P9_24,CTS=P9_20, RTS=P9_19 /dev/ttyO1
@@ -39,7 +39,7 @@ then
 	echo "ppp is already installed"
 else
 	sudo apt-get install ppp screen elinksa
-	echo Point to point protocol is installed
+	echo "Point to point protocol is installed"
 fi
 
 #in case you need to test whether the GPRS module is well connected
@@ -58,7 +58,7 @@ then
 else
 	cd /etc/ppp/peers/
 	#download this configuration file inside this peers directory which define how each ppp connection is setup and rename it fona
-	wget https://raw.githubusercontent.com/adafruit/FONA_PPP/master/fona
+	sudo wget https://raw.githubusercontent.com/adafruit/FONA_PPP/master/fona
 	echo "fona configuration file is installed"
 
 	# Edit this configuration file on APN, we use internet.mtn and serial port to use is ttyO4
@@ -90,11 +90,10 @@ else
 fi
 
 #*******************************************************************************************************************************************
-#emonTx set up
+#set up emonTx baud rate through ttyO2
 #update emonTx firmware, http://openenergymonitor.org/emon/buildingblocks/installing-arduino-libraries
 #http://openenergymonitor.org/emon/buildingblocks/uploading-arduino-firmware
 #After to upload this firmware, connect the UART  EmonTx programming header to beaglebone
-###### we should keep using this UART2 for emonTx due to github file
 #- Pin 1 (GND) of EmonTx programming header  to GND of BeagleBone (P9_1)
 #- Pin 2  of EmonTx , not connected
 #- Pin 3 (Vcc) of EmonTx to 5V DC of BeagleBone (P9_4)
@@ -102,23 +101,12 @@ fi
 #- Pin 5 (RX: written on the board) of EmonTx to RX of BeagleBone (P9_22)
 #- Pin 6 RST of EmonTx, not connected
 
-#Connect emonTx with bbb
-echo EmonTx is connecting ...............
+stty -F /dev/ttyO2 9600
 
-cd /root
-if [ -d /root/serialEmonTx ]
-then
-	echo "Serial communication of EmonTx through ttyO2 already established"
-else
-	#if the directory is not here, make it and download the configuration file 
-	sudo mkdir serialEmonTx
-	cd /root/serialEmonTx/
-	sudo wget https://raw.githubusercontent.com/graycatlabs/PyBBIO/master/examples/serial_echo.py
-	echo "Serial communication of EmonTx through ttyO2 is established"
-fi
+echo "COMMUNICATION BETWEEN BEAGLEBONE AND GPRS Module ESTABLISHED, use uart4: RX=P9_11, TX=P9_13"
+echo "SERIAL COMMUNICATION THROUGH ttyO2 IS SET TO  9600 baud rate, use uart2: RX=P9_22, TX=P9_21"
 
-echo COMMUNICATION BETWEEN BEAGLEBONE AND GPRS Module ESTABLISHED, use uart4: RX=P9_11, TX=P9_13
-echo COMMUNICATION BETWEEN BEAGLEBONE AND EMONTX ESTABLISHED, use uart2: RX=P9_22, TX=P9_21
+echo "Please, Reboot the bbb to save configuration"
 
 
 
