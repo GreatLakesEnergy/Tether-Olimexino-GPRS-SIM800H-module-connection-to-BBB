@@ -7,11 +7,11 @@ echo "ENABLING GPRS CONNECTION ........"
 #UART4 RX=P9_11, TX=P9_13,CTS=P9_35, RTS=P9_33 /dev/ttyO4
 #UART5 RX=P9_38, TX=P9_37,CTS=P9_31, RTS=P9_32 /dev/ttyO5
 
-# add line below in  /boot/uEnv.tx #i used the duplacate file thar i create in order to keep the orginal file safe (uEnv_cp.txt)
+# add line below in  /boot/uboot/uEnv.tx #i used the duplacate file thar i create in order to keep the orginal file safe (uEnv_cp.txt)
 # to  enabled UART port1, 2,4, and 5 ;UART3 is a transmit only UART
 
-cd /boot/
-fileuEnv=uEnv_cp.txt
+cd /boot/uboot
+fileuEnv=uEnv.txt
 
 uart_ports=`grep -c "cape_enable=capemgr.enable_partno=BB-UART1,BB-UART2,BB-UART4,BB-UART5" "$fileuEnv"`
 
@@ -107,6 +107,9 @@ echo "COMMUNICATION BETWEEN BEAGLEBONE AND GPRS Module ESTABLISHED, use uart4: R
 echo "SERIAL COMMUNICATION THROUGH ttyO2 IS SET TO  9600 baud rate, use uart2: RX=P9_22, TX=P9_21"
 
 echo "Please, Reboot the bbb to save configuration"
+
+
+
 
 
 
