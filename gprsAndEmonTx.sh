@@ -63,7 +63,9 @@ else
         #let use sed to replace default APN "****" to "internet.mtn".
         sudo  sed -i "s/\*\*\*\*/internet.mtn/g" /etc/ppp/peers/fona
         sudo echo "/dev/ttyO4" >> /etc/ppp/peers/fona
-fi#Automatic PPP Connection On Boot
+fi
+
+#Automatic PPP Connection On Boot
 #Edit the /etc/network/interfaces file
 # add lines below at the bottom of the file.
 #i used to duplicate the interfaces file so that i keep the orginal safely but it does not work
