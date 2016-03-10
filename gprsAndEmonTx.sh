@@ -56,7 +56,7 @@ then
 else
         cd /etc/ppp/peers/
         #download this configuration file inside this peers directory which define how each ppp connection is setup and rename it fona
-        sudo wget https://raw.githubusercontent.com/adafruit/FONA_PPP/master/fona
+        sudo wget --no-check-certificate https://raw.githubusercontent.com/adafruit/FONA_PPP/master/fona
         echo "fona configuration file is installed"
 
         # Edit this configuration file on APN, we use internet.mtn and serial port to use is ttyO4
