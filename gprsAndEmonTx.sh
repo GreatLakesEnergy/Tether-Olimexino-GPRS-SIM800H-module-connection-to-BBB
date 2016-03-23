@@ -71,21 +71,24 @@ fi
 #i used to duplicate the interfaces file so that i keep the orginal safely but it does not work
 # it does not boot on the copy of the interfaces file.
 
-cd /etc/network/
-file=interfaces
-fonaauto=`grep -c "auto fona" "$file"`
-fonaiface=`grep -c "iface fona inet ppp" "$file"`
-fonaprovider=`grep -c "provider fona" "$file"`
 
-if [ $fonaauto -eq 1 ] && [ $fonaiface -eq 1 ] &&  [ $fonaprovider -eq 1 ]
-then
-        echo "auto ppp connection files are already added"
-else
-        echo "auto ppp connection files are added"
-        sudo echo "auto fona
-        iface fona inet ppp
-        provider fona" >>  /etc/network/interfaces
-fi
+#---------------useful to enable gprs connection on boot----
+#___we don't need this bcz we will use command to enable and disable gprs connection
+#cd /etc/network/
+#file=interfaces
+#fonaauto=`grep -c "auto fona" "$file"`
+#fonaiface=`grep -c "iface fona inet ppp" "$file"`
+#fonaprovider=`grep -c "provider fona" "$file"`
+
+#if [ $fonaauto -eq 1 ] && [ $fonaiface -eq 1 ] &&  [ $fonaprovider -eq 1 ]
+#then
+#        echo "auto ppp connection files are already added"
+#else
+#        echo "auto ppp connection files are added"
+#        sudo echo "auto fona
+#        iface fona inet ppp
+#        provider fona" >>  /etc/network/interfaces
+#fi
 
 #*******************************************************************************************************************************************
 #Set up emonTx baud rate
