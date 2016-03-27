@@ -20,7 +20,8 @@ then
         echo "UART ports 1,2,4 and 5 are already enabled"
 else
         echo "UART ports 1,2,4 and 5 are now enabled"
-        sudo echo "cape_enable=capemgr.enable_partno=BB-UART1,BB-UART2,BB-UART4,BB-UART5" >> /boot/uEnv.txt
+        # ttyO4 will be installed by gprs code
+        sudo echo "cape_enable=capemgr.enable_partno=BB-UART1,BB-UART2,BB-UART5" >> /boot/uEnv.txt
 fi
 
 echo "connect Olimexino nano GSM module RX to TX of bbb"
